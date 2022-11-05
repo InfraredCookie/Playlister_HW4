@@ -3,6 +3,9 @@ import GlobalStoreContext from '../store';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
 
 const style = {
     position: 'absolute',
@@ -10,10 +13,10 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+    //bgcolor: 'background.paper',
+    //border: '2px solid #000',
+    //boxShadow: 24,
+    //p: 4,
 };
 
 export default function MUIEditSongModal() {
@@ -49,7 +52,7 @@ export default function MUIEditSongModal() {
 
     return (
         <Modal
-            open={store.listMarkedForDeletion !== null}
+            open={store.currentSong !== null}
         >
             <Box sx={style}>
             <div
@@ -59,28 +62,30 @@ export default function MUIEditSongModal() {
             <div
                 id='edit-song-root'
                 className="modal-root">
-                <div
-                    id="edit-song-modal-header"
-                    className="modal-north">Edit Song</div>
+                <Alert severity="info" color="info">  
+                    <div
+                        id="edit-song-modal-header"
+                        className="modal-north">Edit Song</div>
+                </Alert>  
                 <div
                     id="edit-song-modal-content"
                     className="modal-center">
                     <div id="title-prompt" className="modal-prompt">Title:</div>
-                    <input 
+                    <TextField variant="outlined"
                         id="edit-song-modal-title-textfield" 
                         className='modal-textfield' 
                         type="text" 
                         defaultValue={title} 
                         onChange={handleUpdateTitle} />
                     <div id="artist-prompt" className="modal-prompt">Artist:</div>
-                    <input 
+                    <TextField variant="outlined"
                         id="edit-song-modal-artist-textfield" 
                         className='modal-textfield' 
                         type="text" 
                         defaultValue={artist} 
                         onChange={handleUpdateArtist} />
-                    <div id="you-tube-id-prompt" className="modal-prompt">You Tube Id:</div>
-                    <input 
+                    <div id="you-tube-id-prompt" className="modal-prompt">YouTube Id:</div>
+                    <TextField variant="outlined" 
                         id="edit-song-modal-youTubeId-textfield" 
                         className='modal-textfield' 
                         type="text" 
@@ -88,18 +93,21 @@ export default function MUIEditSongModal() {
                         onChange={handleUpdateYouTubeId} />
                 </div>
                 <div className="modal-south">
-                    <input 
-                        type="button" 
+                    <Button variant="contained"
                         id="edit-song-confirm-button" 
                         className="modal-button" 
-                        value='Confirm' 
-                        onClick={handleConfirmEditSong} />
-                    <input 
+                        onClick={handleConfirmEditSong}
+                    >
+                        Confirm
+                    </Button>
+                    <Button variant="contained"
                         type="button" 
                         id="edit-song-cancel-button" 
                         className="modal-button" 
-                        value='Cancel' 
-                        onClick={handleCancelEditSong} />
+                        onClick={handleCancelEditSong} 
+                    >
+                        Cancel
+                    </Button>
                 </div>
             </div>
         </div>
