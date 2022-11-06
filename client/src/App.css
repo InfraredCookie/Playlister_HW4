@@ -94,7 +94,17 @@ body {
   cursor: not-allowed;
 }
 
-#top5-list-selector {
+#playlist-selector {
+  position: absolute;
+  left: 0%;
+  top: 10%;
+  width: 100%;
+  height: 80%;
+  background-color: var(--swatch-primary);
+}
+
+#playlist-cards {
+  overflow: scroll;
   position: absolute;
   left: 0%;
   top: 10%;
@@ -112,13 +122,13 @@ body {
   background-color: var(--swatch-accent);
 }
 
-#top5-statusbar {
+#playlister-statusbar {
   position: absolute;
   left: 0%;
   top: 90%;
   width: 100%;
   height: 10%;
-  background-color: lightsalmon;
+  /*background-color: lightsalmon;*/
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,7 +140,7 @@ body {
   left: 25%;
   top: 0%;
   width: 50%;
-  height: 10%;
+  height: 5%;
   text-align: center;
   font-size: 24pt;
   font-weight: bold;
@@ -189,6 +199,7 @@ body {
 .list-card-button {
   float: right;
   transform: scale(2);
+  scale: 50%;
 }
 
 #workspace-home,

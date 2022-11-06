@@ -76,7 +76,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     currentModal : CurrentModal.NONE,
                     idNamePairs: payload.idNamePairs,
-                    currentList: payload.playlist,
+                    currentList: null,
                     currentSongIndex: -1,
                     currentSong: null,
                     newListCounter: store.newListCounter,
@@ -507,16 +507,16 @@ function GlobalStoreContextProvider(props) {
         tps.doTransaction();
     }
     store.canAddNewSong = function() {
-        return (store.currentList !== null);
+        return (store.currentList !== null && store.currentModal === "NONE");
     }
     store.canUndo = function() {
-        return ((store.currentList !== null) && tps.hasTransactionToUndo());
+        return ((store.currentList !== null) && tps.hasTransactionToUndo() && store.currentModal === "NONE");
     }
     store.canRedo = function() {
-        return ((store.currentList !== null) && tps.hasTransactionToRedo());
+        return ((store.currentList !== null) && tps.hasTransactionToRedo() && store.currentModal === "NONE");
     }
     store.canClose = function() {
-        return (store.currentList !== null);
+        return (store.currentList !== null && store.currentModal === "NONE");
     }
     //mycode
     store.logout = function () {
@@ -530,6 +530,23 @@ function GlobalStoreContextProvider(props) {
             payload: null
         });
     }
+
+    //ctrl z x
+    store.handleKeyPress = function() {
+        let evtobj = window.event
+        if(evtobj.keyCode === 90 && evtobj.ctrlKey) {
+            if(tps.hasTransactionToUndo) {
+                store.undo();
+            }
+        }
+        if(evtobj.keyCode === 89 && evtobj.ctrlKey) {
+            if(tps.hasTransactionToRedo) {
+                store.redo();
+            }
+        }
+    }
+
+    document.onkeydown = store.handleKeyPress;
 
     return (
         <GlobalStoreContext.Provider value={{
