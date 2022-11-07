@@ -519,7 +519,7 @@ function GlobalStoreContextProvider(props) {
         return (store.currentList !== null && store.currentModal === "NONE");
     }
     //mycode
-    store.logout = function () {
+    store.closeList = function () {
         store.closeCurrentList();
     }
 
